@@ -36,22 +36,22 @@ func WithValue(name string, value interface{}) Option {
 }
 
 // WithStatusCode sets the HTTP status code associated with the log message.
-func WithStatusCode(code int) Option {
+func WithStatusCode(statusCode int) Option {
 	return func(m *Message) {
-		m.StatusCode = code
+		m.statusCode = statusCode
 	}
 }
 
 // WithStatusUnauthorised is equivalent to WithStatusCode(http.StatusBadRequest)
 func WithStatusBadRequest() Option {
 	return func(m *Message) {
-		m.StatusCode = http.StatusBadRequest
+		m.statusCode = http.StatusBadRequest
 	}
 }
 
 // WithStatusUnauthorised is equivalent to WithStatusCode(http.StatusUnauthorized)
 func WithStatusUnauthorized() Option {
 	return func(m *Message) {
-		m.StatusCode = http.StatusUnauthorized
+		m.statusCode = http.StatusUnauthorized
 	}
 }

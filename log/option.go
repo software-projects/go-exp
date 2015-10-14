@@ -35,6 +35,12 @@ func WithValue(name string, value interface{}) Option {
 	}
 }
 
+func WithErrorCode(code string) Option {
+	return func(m *Message) {
+		m.errorCode = code
+	}
+}
+
 // WithStatusCode sets the HTTP status code associated with the log message.
 func WithStatusCode(statusCode int) Option {
 	return func(m *Message) {

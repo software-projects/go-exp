@@ -61,3 +61,10 @@ func WithStatusUnauthorized() Option {
 		m.statusCode = http.StatusUnauthorized
 	}
 }
+
+// WithStatusForbidden is equivalent to WithStatusCode(http.StatusForbidden)
+func WithStatusForbidden() Option {
+	return func(m *Message) {
+		m.statusCode = http.StatusForbidden
+	}
+}

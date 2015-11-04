@@ -63,10 +63,30 @@ func Debug(text string, opts ...Option) *Message {
 	return m
 }
 
+// DebugC logs an info level message with a context. Calling DebugC
+// is identical to calling Debug with a WithContext option.
+func DebugC(ctx context.Context, text string, opts ...Option) *Message {
+	m := newMessage(LevelDebug, text)
+	m.applyOpts(opts)
+	WithContext(ctx)(m)
+	doPrint(m)
+	return m
+}
+
 // Info logs an info level message.
 func Info(text string, opts ...Option) *Message {
 	m := newMessage(LevelInfo, text)
 	m.applyOpts(opts)
+	doPrint(m)
+	return m
+}
+
+// InfoC logs an info level message with a context. Calling InfoC
+// is identical to calling Info with a WithContext option.
+func InfoC(ctx context.Context, text string, opts ...Option) *Message {
+	m := newMessage(LevelInfo, text)
+	m.applyOpts(opts)
+	WithContext(ctx)(m)
 	doPrint(m)
 	return m
 }
@@ -79,10 +99,30 @@ func Warn(text string, opts ...Option) *Message {
 	return m
 }
 
+// WarnC logs an info level message with a context. Calling WarnC
+// is identical to calling Warn with a WithContext option.
+func WarnC(ctx context.Context, text string, opts ...Option) *Message {
+	m := newMessage(LevelWarning, text)
+	m.applyOpts(opts)
+	WithContext(ctx)(m)
+	doPrint(m)
+	return m
+}
+
 // Error logs an error level message.
 func Error(text string, opts ...Option) *Message {
 	m := newMessage(LevelError, text)
 	m.applyOpts(opts)
+	doPrint(m)
+	return m
+}
+
+// ErrorC logs an info level message with a context. Calling ErrorC
+// is identical to calling Error with a WithContext option.
+func ErrorC(ctx context.Context, text string, opts ...Option) *Message {
+	m := newMessage(LevelError, text)
+	m.applyOpts(opts)
+	WithContext(ctx)(m)
 	doPrint(m)
 	return m
 }

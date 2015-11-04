@@ -24,7 +24,11 @@
 // 5. Messages can be logged as text messages, or structured (JSON) messages.
 package log
 
-import "os"
+import (
+	"os"
+
+	"golang.org/x/net/context"
+)
 
 var handlers []Handler
 
@@ -79,6 +83,41 @@ func Warn(text string, opts ...Option) *Message {
 func Error(text string, opts ...Option) *Message {
 	m := newMessage(LevelError, text)
 	m.applyOpts(opts)
+	doPrint(m)
+	return m
+}
+
+// ErrorCE handles the common case where an error is logged with a context and
+// an error. A call to
+//
+//  log.ErrorCE(ctx, err, "some text")
+//
+// is identical to calling
+//
+//  log.ErrorCE(ctx, err, "some text",
+//          log.WithContext(ctx),
+//          log.WithError(err))
+//
+// and a call to
+//
+//  log.ErrorCE(ctx, err, "some text",
+//          log.WithValue("key1", "val1"),
+//          log.WithValue("key2", "val2"))
+//
+// is identical to calling
+//
+//  log.ErrorCE(ctx, err, "some text",
+//          log.WithValue("key1", "val1"),
+//          log.WithValue("key2", "val2"),
+//          log.WithContext(ctx),
+//          log.WithError(err))
+//
+// This function was introduced to handle a common usage pattern succinctly.
+func ErrorCE(ctx context.Context, err error, text string, opts ...Option) *Message {
+	m := newMessage(LevelError, text)
+	m.applyOpts(opts)
+	WithContext(ctx)(m)
+	WithError(err)(m)
 	doPrint(m)
 	return m
 }

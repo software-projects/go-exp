@@ -18,6 +18,12 @@
 // 2. Uses an api that allows for multiple options and parameters to be
 // logged in a single call. (See "Functional options for friendly APIs"
 // by Dave Cheney http://goo.gl/l2KaW3).
+//  if err := doSometing(ctx, a); err != nil {
+//      return log.Debug("cannot do someting",
+//          log.WithValue("a", a),
+//          log.WithError(err),
+//          log.WithContext(ctx))
+//  }
 //
 // 3. When a message is logged, a non-nil *Message value is returned, which
 // can be returned as an error value.

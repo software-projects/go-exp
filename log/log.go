@@ -33,6 +33,12 @@
 //
 // 4. This package is context aware (golang.org/x/net/context). Contexts
 // can be created with information that will be logged with the message.
+//  ctx = log.NewContext(ctx, "a", "SomeValue")
+//
+//  // ... do some work and then
+//
+//  // the following message will include "a=SomeValue" from the context
+//  log.Info("some message", log.WithContext(ctx))
 //
 // 5. Messages can be logged as text messages, or structured (JSON) messages.
 package log

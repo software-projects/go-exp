@@ -10,6 +10,10 @@
 // log message should have a constant message, which makes it easier to
 // filter and search for messages. Any variable information is passed as
 // properties in the message (see the WithValue function).
+//  doSometingWith(a, b)
+//  log.Debug("did something",
+//      log.WithValue("a", a),
+//      log.WithValue("b", b))
 //
 // 2. Uses an api that allows for multiple options and parameters to be
 // logged in a single call. (See "Functional options for friendly APIs"
@@ -17,6 +21,9 @@
 //
 // 3. When a message is logged, a non-nil *Message value is returned, which
 // can be returned as an error value.
+//  if err := doSometing(); err != nil {
+//      return log.Error("cannot doSomething", log.WithError(err))
+//  }
 //
 // 4. This package is context aware (golang.org/x/net/context). Contexts
 // can be created with information that will be logged with the message.
